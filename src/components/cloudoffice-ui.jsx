@@ -35,7 +35,7 @@ export function CloudofficeUi() {
       id: 1,
       documentCode: 'DOC001',
       name: 'Báo cáo tháng 7',
-      type: 'PDF',
+      type: 'Wifi',
       service: 'Báo cáo',
       partner: 'Công ty A',
       department: 'Phòng Kinh doanh',
@@ -46,7 +46,7 @@ export function CloudofficeUi() {
       id: 2,
       documentCode: 'DOC002',
       name: 'Hợp đồng nhân sự',
-      type: 'DOCX',
+      type: 'Walkie-talkie',
       service: 'Nhân sự',
       partner: 'Công ty B',
       department: 'Phòng Nhân sự',
@@ -58,7 +58,7 @@ export function CloudofficeUi() {
       documentCode: 'DOC003',
       name: 'Kế hoạch Q3',
       type: 'XLSX',
-      service: 'Kế hoạch',
+      service: 'Voip',
       partner: 'Công ty C',
       department: 'Phòng Kế hoạch',
       date: '2023-07-13',
@@ -68,7 +68,7 @@ export function CloudofficeUi() {
       id: 4,
       documentCode: 'DOC004',
       name: 'Biên bản họp',
-      type: 'PDF',
+      type: 'Car Parking',
       service: 'Họp',
       partner: 'Công ty D',
       department: 'Phòng Hành chính',
@@ -79,7 +79,7 @@ export function CloudofficeUi() {
       id: 5,
       documentCode: 'DOC005',
       name: 'Đề xuất dự án',
-      type: 'PPTX',
+      type: 'Car Parking',
       service: 'Dự án',
       partner: 'Công ty E',
       department: 'Phòng Dự án',
@@ -209,8 +209,8 @@ export function CloudofficeUi() {
                     <TableCell className="font-medium text-xs">{index + 1}</TableCell>
                     <TableCell className="text-xs">{doc.documentCode}</TableCell>
                     <TableCell className="text-xs">{doc.name}</TableCell>
-                    <TableCell className="text-xs">{doc.type}</TableCell>
                     <TableCell className="text-xs">{doc.service}</TableCell>
+                    <TableCell className="text-xs">{doc.type}</TableCell>
                     <TableCell className="text-xs">{doc.partner}</TableCell>
                     <TableCell className="text-xs">{doc.department}</TableCell>
                     <TableCell className="text-xs">{doc.date}</TableCell>
