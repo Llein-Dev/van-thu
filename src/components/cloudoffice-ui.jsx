@@ -1,9 +1,10 @@
 'use client'
 
+import Link from 'next/link'
 import { useState } from 'react'
-import Link from 'next/link'  // Import Link from Next.js
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { DashboardComponent } from './header'
+import { NewProjectFormComponent } from './new-project-form'
+import { JobSearchComponent } from './job-search'
 import {
   Table,
   TableBody,
@@ -26,8 +27,6 @@ import {
   Plus,
   Filter
 } from 'lucide-react'
-import { DashboardComponent } from './dashboard'
-import { NewProjectFormComponent } from './new-project-form'
 
 export function CloudofficeUi() {
   const [documents, setDocuments] = useState([
@@ -108,6 +107,22 @@ export function CloudofficeUi() {
   };
 
 
+  const [sortField, setSortField] = useState('name'); // Default sort field
+  const [sortOrder, setSortOrder] = useState('asc'); // Default sort order
+
+  const handleSort = (field) => {
+    const isAsc = sortField === field && sortOrder === 'asc';
+    setSortField(field);
+    setSortOrder(isAsc ? 'desc' : 'asc');
+  };
+
+  const sortedDocuments = [...documents].sort((a, b) => {
+    const comparison = a[sortField] < b[sortField] ? -1 : 1;
+    return sortOrder === 'asc' ? comparison : -comparison;
+  });
+
+
+
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
@@ -152,15 +167,8 @@ export function CloudofficeUi() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <header className="flex items-center justify-between px-6 py-3 bg-white shadow">
-          <div className="flex items-center">
-            <Input type="search" placeholder="Tìm kiếm văn bản..." className="w-64 text-sm rounded-e-none" />
-            <Button variant="outline" size="icon" className="h-10 w-10 rounded-l-none ">
-              <Search className="h-4 w-4" />
-            </Button>
-          </div>
-          <div className="flex items-center">
-            {/* <Button variant="ghost" size="icon" className="mr-3 h-8 w-8">
+        <header className="flex items-center justify-end px-6 py-3 gap-4  bg-white shadow">
+          {/* <Button variant="ghost" size="icon" className="mr-3 h-8 w-8">
               <Mail className="h-4 w-4" />
             </Button>
             <Button variant="ghost" size="icon" className="mr-3 h-8 w-8">
@@ -171,40 +179,32 @@ export function CloudofficeUi() {
               <span className="text-sm">Nguyễn Văn A</span>
               <ChevronDown className="h-4 w-4 ml-1" />
             </Button> */}
-            <DashboardComponent />
-          </div>
+          <DashboardComponent />
+
 
         </header>
 
         {/* Document List */}
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
           <div className="container mx-auto px-6 py-6">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold text-gray-700">Danh sách văn bản</h2>
-              <div className='flex items-center gap-2'>
-                <NewProjectFormComponent />
-                <Button variant="outline" className="px-3 py-2 text-xs">
-                  <Filter className="h-4 w-4 mr-2" />
-                  Lọc
-                </Button>
-              </div>
-            </div>
+            <JobSearchComponent />
+
             <Table>
               <TableHeader className="bg-white">
                 <TableRow>
                   <TableHead className="text-xs font-medium">Số thứ tự</TableHead>
-                  <TableHead className="text-xs font-medium">Số ký hiệu</TableHead>
-                  <TableHead className="text-xs font-medium">Tên văn bản</TableHead>
-                  <TableHead className="text-xs font-medium">Loại Văn bản</TableHead>
-                  <TableHead className="text-xs font-medium">Dịch vụ</TableHead>
-                  <TableHead className="text-xs font-medium">Đối tác</TableHead>
-                  <TableHead className="text-xs font-medium">Phòng ban</TableHead>
-                  <TableHead className="text-xs font-medium">Ngày nhập</TableHead>
-                  <TableHead className="text-xs font-medium">Trạng thái</TableHead>
+                  <TableHead onClick={() => handleSort('documentCode')} className="cursor-pointer text-xs font-medium">Số ký hiệu</TableHead>
+                  <TableHead onClick={() => handleSort('name')} className="cursor-pointer text-xs font-medium">Tên văn bản</TableHead>
+                  <TableHead onClick={() => handleSort('service')} className="cursor-pointer text-xs font-medium">Loại Văn bản</TableHead>
+                  <TableHead onClick={() => handleSort('type')} className="cursor-pointer text-xs font-medium">Dịch vụ</TableHead>
+                  <TableHead onClick={() => handleSort('partner')} className="cursor-pointer text-xs font-medium">Đối tác</TableHead>
+                  <TableHead onClick={() => handleSort('department')} className="cursor-pointer text-xs font-medium">Phòng ban</TableHead>
+                  <TableHead onClick={() => handleSort('date')} className="cursor-pointer text-xs font-medium">Ngày nhập</TableHead>
+                  <TableHead onClick={() => handleSort('status')} className="cursor-pointer text-xs font-medium">Trạng thái</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {documents.map((doc, index) => (
+                {sortedDocuments.map((doc, index) => (
                   <TableRow key={doc.id}>
                     <TableCell className="font-medium text-xs">{index + 1}</TableCell>
                     <TableCell className="text-xs">{doc.documentCode}</TableCell>

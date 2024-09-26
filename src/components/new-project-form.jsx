@@ -30,8 +30,8 @@ export function NewProjectFormComponent() {
   return (
     (<Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button >
-          <Plus className="h-4 w-4 mr-2" />Add</Button>
+        <Button className="w-full">
+          Add</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -47,15 +47,7 @@ export function NewProjectFormComponent() {
               placeholder="Enter project name"
               required />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="projectDescription">Project Description</Label>
-            <Textarea
-              id="projectDescription"
-              value={projectDescription}
-              onChange={(e) => setProjectDescription(e.target.value)}
-              placeholder="Enter project description"
-              required />
-          </div>
+    
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="startDate">Start Date</Label>
@@ -85,5 +77,5 @@ export function NewProjectFormComponent() {
         </form>
       </DialogContent>
     </Dialog>)
-  );
+  ); x``
 }
